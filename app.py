@@ -1,13 +1,21 @@
+import os
 from flask import Flask
 from flask_restful import Api
 from flask_jwt import JWT, jwt_required
+from flask_sqlalchemy import SQLAlchemy
 
-from news_source import NewsSourceById, NewsBySourceId, NewsBySourceName, NewsSources
-from news_details import NewsDetails, News
-from news_category import NewsCategoryById, NewsByCategoryId, NewsByCategoryName, NewsCategories
+
+from resources.news_source import NewsSourceById, NewsBySourceId, NewsBySourceName, NewsSources
+from resources.news_details import NewsDetails, News
+from resources.news_category import NewsCategoryById, NewsByCategoryId, NewsByCategoryName, NewsCategories
 
 app = Flask(__name__)
+
+app.config['DEBUG'] = True
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL','sqlite://news_db.db']
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = 'newsapi'
+db = SQLAlchemy(app)
 api = Api(app)
 
 
@@ -26,4 +34,13 @@ api.add_resource(NewsByCategoryName,  '/getNewsByCategoryName/<name>')
 # api.add_resource(NewsDetails, '/getNewsByCategoryId/<int:categoryId>')
 
 # run the app in  the specified port
-app.run(port=5000, debug = True)
+# if __name__ == '__main__':
+#     from db import db
+#     db.init_app(app)
+
+#     if app.config['DEBUG']:
+#         @app.before_first_request
+#         def create_tables():
+#             db.create_all()
+
+app.run(port=5000)
