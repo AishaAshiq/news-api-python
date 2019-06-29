@@ -43,4 +43,4 @@ api.add_resource(NewsByCategoryName,  '/getNewsByCategoryName/<name>')
 #         def create_tables():
 #             db.create_all()
 
-app.run(port=5000, debug=True)
+app.run(port=5050, debug=True)
