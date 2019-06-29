@@ -7,32 +7,22 @@ class NewsSource(Resource):
     #     self.id = _id
     #     self.name = name
 
+    # function to get the news source based on the id
     def get(self, id):
+
+        #connect to sqlite database
         connection = sqlite3.connect('news_db.db')
         cursor = connection.cursor()
 
+        #query to select the category based on the id
         query = "SELECT * FROM news_source WHERE id=(?) "
         result = cursor.execute(query, (id,))
         row = result.fetchone()
         connection.close()
 
+        #check for null and return the fetched values from database to the API
         if row:
             return {'source': {'id': row[0], 'name': row[1] }}
-        return {'message': 'No source found'}, 404
+        return {'message': 'No source found for the given ID'}, 404
 
-    # def getid(self):
-    #     connection = sqlite3.connect('news_db.db')
-    #     cursor = connection.cursor()
-
-    #     query = "SELECT * FROM news_source"
-    #     result = cursor.execute(query)
-    #     rows = result.fetchmany()
-    #     connection.close()
-
-    #     if rows:
-    #         for r in rows:
-    #             return {'items': rows[r] }
-    #     return {'message': 'No items found'}, 404
-
-
-# Api.add_resource(NewsSource, '/sources')
+    
