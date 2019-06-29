@@ -13,8 +13,8 @@ api = Api(app)
 
 # jwt = JWT(app, authenticate, identity) #/auth
 
-api.add_resource(NewsDetails, '/news/<id>')
-api.add_resource(NewsSource, '/newssource/<id>')
+api.add_resource(NewsDetails, '/getNewsById/<id>')
+api.add_resource(NewsSource, '/getNewsSourceById/<id>')
 # api.add_resource(NewsSource, '/sources')
 # api.add_resource(NewsCategory, '/newscategories')
 
