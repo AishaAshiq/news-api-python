@@ -12,7 +12,7 @@ from resources.news_category import NewsCategoryById, NewsByCategoryId, NewsByCa
 app = Flask(__name__)
 
 # app.config['DEBUG'] = True
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite://news_db.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = 'newsapi'
 db = SQLAlchemy(app)
